@@ -1,5 +1,10 @@
 const cocktailsURL = "http://localhost:3000/cocktails"
-const cocktailDiv = document.getElementById("cocktail-container")
+const cocktailDiv = document.getElementById("cocktail-id")
+const cocktailName = document.getElementById("cocktail-name")
+const ingredientUl = document.getElementById("ingredient-list")
+const cocktailImage = document.getElementById("cocktail-image")
+const cocktailInstrcts = document.getElementById("instructions")
+
 
 function fetchCocktails(){
     fetch(cocktailsURL)
@@ -7,31 +12,33 @@ function fetchCocktails(){
     .then(cocktails => 
         cocktails.data.forEach(cocktail =>{
             
-            // const ingredient = cocktail.attributes.ingredients.forEach(ing =>{
-            //     console.log(ing.name)
-            // })
-            // console.log(ingredient)
-            const cocktailMarkup = `
-            <div data-id={cocktail.id}>
-            <img src=${cocktail.attributes.image} width="250" height="250">
-            <h3 id="cocktail-name">${cocktail.attributes.name}</h3>
-            <ul id="ingredient-list">
-               ${ingredientList(cocktail)}
-            </ul>
-            <p id="instructions">Instructions:<br> ${cocktail.attributes.instructions}</p>
-            </div>
-            `
-            cocktailDiv.innerHTML += cocktailMarkup
+            cocktailImage.src = cocktail.attributes.image
+            cocktailName.innerText = cocktail.attributes.name
+        
+            ingredientList(cocktail)
+            cocktailInstrcts.innerText = cocktail.attributes.instructions
+ 
         })
      )}
 
      function ingredientList(cocktail){
         let ingredients = cocktail.attributes.ingredients
-       
+      
         return ingredients.map(ingr => {
 
-            return ingr.name
+            let li = document.createElement('li')
+            // let ingredient = ingr.name
+             li.innerText = ingr.name
+             ingredientUl.appendChild(li)
+            
             })
 
+            // for (i = 0; i < ingredients.length; i++){
+            //     let li = document.createElement('li')
+            //     let ing = ingredients[i].name
+            //     li.innerText = ing
+            //    ingredientUl.appendChild(li)
+            // }
+            
      }
 fetchCocktails()
