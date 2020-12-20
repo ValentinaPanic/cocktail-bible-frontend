@@ -7,26 +7,23 @@
 </head>
 <body>
     <h1 class ="logo">Cocktail Bible</h1>
-    <div id = "cocktail-form-container">
+    <div id="cocktail-container">
+    <h3>Create A New Cocktail</h3>
+         
         <form id="cocktail-form">
-            <h3>Create A New Cocktail</h3>
-             <input type="text" id= "input-image-url" placeholder="Upload the image URL"><br>
+            
+            <input type="text" id= "input-image-url" placeholder="Upload the image URL"><br>
             <input type="text" id="input-cocktail-name" placeholder="Cocktail Name"><br>
+            
             <textarea id="input-instructions" rows="8" cols="60" placeholder="Instructions"></textarea>
             <input type="submit">
-    </form><br>
-    </div>
-    
-    <hr>
-    <div id="cocktail-container">
-        <div data-id="cocktail-id">
-            <img  id="cocktail-image" width="250" height="250">
-            <h3 id="cocktail-name"></h3><br>
-            <ul id="ingredient-list">
-            </ul><br>
-            <p id="instructions"></p><br>
+        </form><br>
+        <hr>
 
-        </div>
+     <div id="cocktail-list">
+      
+     </div>
+       
     </div>
     <script src="./src/index.js"></script>   
 </body>
