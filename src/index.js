@@ -38,10 +38,12 @@ function fetchCocktails(){
 )}
 
  function renderCocktail(cocktailObj){
-    //   console.log(cocktailObj.attributes.ingredients)
-   
+      console.log(cocktailObj.id)
+       
         const cocktailList = document.getElementById("cocktail-list")
-        cocktailList.dataset.id = cocktailObj.id
+         const cocktailLi = document.createElement('li')
+        cocktailLi.dataset.id = cocktailObj.id
+        cocktailList.appendChild(cocktailLi)
         //cocktail html 
         const h3 = document.createElement('h3')
         h3.innerText = cocktailObj.attributes.name
@@ -50,9 +52,11 @@ function fetchCocktails(){
         img.width = 200
         const p = document.createElement('p')
         p.innerText = cocktailObj.attributes.instructions
+
         //delete button
         const deleteBtn = document.createElement("button")
         deleteBtn.innerText = "Delete Cocktail"
+        deleteBtn.addEventListener("click", deleteCocktail)
         //ingredient form
         const ingredientForm = document.createElement('form')
         ingredientForm.innerHTML += `<input type="text" id="ingredient-input" placeholder ="Ingredient">
@@ -63,7 +67,7 @@ function fetchCocktails(){
 
         const ingredientList = document.createElement("ul")
         //rendering ingredients per cocktail
-        const ingrd = cocktailObj.attributes.ingredients.forEach(ingredient =>{
+        cocktailObj.attributes.ingredients.forEach(ingredient =>{
         const ingredientLi = document.createElement('li')
         ingredientLi.innerText = ingredient.name
 
@@ -71,13 +75,24 @@ function fetchCocktails(){
         
     })
     
-    cocktailList.append( h3, img, ingredientList, ingredientForm, p, deleteBtn)
+    cocktailLi.append( h3, img, ingredientList, ingredientForm, p, deleteBtn)
     cocktailForm.reset()
  
  }
 
+ function deleteCocktail(e){
+    //  console.log(e.target.parentElement)
+    const cocktailId = e.target.parentElement.dataset.id
+
+     fetch(`${cocktailsURL}/${cocktailId}`,{
+         method: "DELETE"
+     })
+
+     e.target.parentElement.remove()
+ }
+
     function renderIngredient(e){
-        console.log(e.target.nextElementSibling)
+        // console.log(e.target.nextElementSibling)
         e.preventDefault()
         
         let li = document.createElement('li')
