@@ -24,97 +24,89 @@ function submitCocktail(e){
            instructions: instructionsInput.value
            
         })
-    })
-   
-     renderCocktail(cocktailNameInput.value,imageInput.value, instructionsInput.value)
-}
-
- function renderCocktail(name, image, instructions){
-    //  console.log(name, image, instructions)
-    const cocktailList = document.getElementById("cocktail-list")
-   
-    const cocktailMarkup =`
-    
-            <h3 id="cocktail-name">${name}</h3><br>
-            <img src=${image} id="cocktail-image" width="250" height="250"><br>
         
-            <label type="text">Instructions:</label>
-            <p id="instructions">${instructions}</p><br>
-        `
-    
-    const ingredientForm = document.createElement('form')
-    ingredientForm.innerHTML += `<input type="text" id="ingredient-input" placeholder ="Ingredient">
-    <input type="submit" value="Add">`
+    })
+    .then(response => response.json())
+    .then(cocktailObj => renderCocktail(cocktailObj))
+  
+}
+fetchCocktails()
+function fetchCocktails(){
+    fetch(cocktailsURL)
+    .then(response => response.json())
+    .then(cocktails =>  cocktails.data.forEach(cocktail => renderCocktail(cocktail))
+)}
 
-    
-     ingredientForm.addEventListener("submit", (e) => renderIngredient(e))
-
-    const ingrDiv = document.getElementById("ingredient-list")
-    const ingredientList = document.createElement("ul")
+ function renderCocktail(cocktailObj){
+    //   console.log(cocktailObj.attributes.ingredients)
    
-    cocktailList.innerHTML += cocktailMarkup
-    cocktailList.append( ingredientForm, ingredientList)
+        const cocktailList = document.getElementById("cocktail-list")
+        cocktailList.dataset.id = cocktailObj.id
+        //cocktail html 
+        const h3 = document.createElement('h3')
+        h3.innerText = cocktailObj.attributes.name
+        const img = document.createElement('img')
+        img.src = cocktailObj.attributes.image
+        img.width = 200
+        const p = document.createElement('p')
+        p.innerText = cocktailObj.attributes.instructions
+        //delete button
+        const deleteBtn = document.createElement("button")
+        deleteBtn.innerText = "Delete Cocktail"
+        //ingredient form
+        const ingredientForm = document.createElement('form')
+        ingredientForm.innerHTML += `<input type="text" id="ingredient-input" placeholder ="Ingredient">
+        <input type="submit" value="Add">`
+
+    
+        ingredientForm.addEventListener("submit", renderIngredient)
+
+        const ingredientList = document.createElement("ul")
+        //rendering ingredients per cocktail
+        const ingrd = cocktailObj.attributes.ingredients.forEach(ingredient =>{
+        const ingredientLi = document.createElement('li')
+        ingredientLi.innerText = ingredient.name
+
+        ingredientList.appendChild(ingredientLi)
+        
+    })
+    
+    cocktailList.append( h3, img, ingredientList, ingredientForm, p, deleteBtn)
     cocktailForm.reset()
  
  }
 
-function renderIngredient(e){
-
-    e.preventDefault()
-    let li = document.createElement('li')
-    let ingredientList = e.target.nextElementSibling
-    let ingredientName = e.target.children[0].value
-    li.innerText = ingredientName
-
-    ingredientList.appendChild(li)
-    e.target.reset()
-    submitIngredient(ingredientName)
+    function renderIngredient(e){
+        console.log(e.target.nextElementSibling)
+        e.preventDefault()
+        
+        let li = document.createElement('li')
+        let ingredientList = e.target.nextElementSibling
+        let ingredientName = e.target.children[0].value
+        li.innerText = ingredientName
+        const cocktailId = e.target.parentElement.dataset.id
+        console.log(cocktailId)
+        ingredientList.appendChild(li)
+        e.target.reset()
+        submitIngredient(ingredientName, cocktailId)
 }
 
- function submitIngredient(ingredientName){
+ function submitIngredient(ingredientName, cocktailId){
 
-    fetch(ingredientsURL,{
+    fetch(ingredientsURL, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
             "Accept": "application/json",
         },
         body: JSON.stringify({
-           name: ingredientName
-           
+           name: ingredientName,
+           cocktail_id: cocktailId
         })
     })
-        
+    .catch(error => alert(error))
+    //    console.log(cocktailId) 
     }
  
-fetchCocktails()
-function fetchCocktails(){
-    fetch(cocktailsURL)
-    .then(response => response.json())
-    .then(cocktails =>{ 
-        cocktails.data.forEach(cocktail =>{
-            const cocktailData = cocktail.attributes
-            // const ingList = cocktailData.ingredients.forEach(ingr => { ingr.name})
-            renderCocktail(cocktailData.name, cocktailData.image, cocktailData.instructions)
-           
-        })}
-     )}
 
-    
-
-    //  function renderIngredient(cocktail){
-    //     let ingredients = cocktail.attributes.ingredients
-      
-    //         return ingredients.map(ingr => {
-
-    //         let li = document.createElement('li')
-    //         li.innerText = ingr.name
-    //         ingredientUl.appendChild(li)
-    //         submitIngredient()
-    //         })
-    //  }
-
-    
-
-    
-
+  
