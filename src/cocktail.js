@@ -56,19 +56,19 @@ class Cocktail{
         <input type="submit" value="Add">`
 
     
-        ingredientForm.addEventListener("submit", renderIngredient)
+        ingredientForm.addEventListener("submit", Ingredient.createIngredient)
 
         const ingredientList = document.createElement("ul")
         //rendering ingredients per cocktail
         this.ingredients.forEach(ingredient =>{
-        const ingredientLi = document.createElement('li')
-        ingredientLi.innerText = ingredient.name
-
-        ingredientList.appendChild(ingredientLi)
+            let newIngr = new Ingredient(ingredient)
+            // console.log(newIngr)
+           newIngr.renderIngredient(ingredientList)
         
     })
     
     cocktailLi.append( h3, img, ingredientList, ingredientForm, p, deleteBtn)
+
     cocktailForm.reset()
  
  }
@@ -92,7 +92,7 @@ class Cocktail{
     .then(response => response.json())
     .then(cocktail => {
         
-        let newCocktail = new Cocktail(cocktail)
+        let newCocktail = new Cocktail(cocktail.data)
         newCocktail.renderCocktail()}
         )}
 
