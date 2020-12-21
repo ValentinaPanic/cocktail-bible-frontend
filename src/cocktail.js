@@ -49,7 +49,7 @@ class Cocktail{
         //delete button
         const deleteBtn = document.createElement("button")
         deleteBtn.innerText = "Delete Cocktail"
-        deleteBtn.addEventListener("click", deleteCocktail)
+        deleteBtn.addEventListener("click", this.deleteCocktail)
         //ingredient form
         const ingredientForm = document.createElement('form')
         ingredientForm.innerHTML += `<input type="text" id="ingredient-input" placeholder ="Ingredient">
@@ -95,5 +95,17 @@ class Cocktail{
         let newCocktail = new Cocktail(cocktail)
         newCocktail.renderCocktail()}
         )}
+
+        deleteCocktail(){
+
+            //  console.log(this.target.parentElement)
+            const cocktailId = this.parentElement.dataset.id
+        
+             fetch(`${cocktailsURL}/${cocktailId}`,{
+                 method: "DELETE"
+             })
+             .catch(err => alert(err))
+             this.parentElement.remove()
+         }
 }
 
