@@ -16,20 +16,23 @@ class Ingredient{
         const ingredientList = e.target.nextElementSibling
         const cocktailId = e.target.parentElement.dataset.id
 //  debugger
- Ingredient.submitIngredient(ingredientName, ingredientList, cocktailId)
+        Ingredient.submitIngredient(ingredientName, ingredientList, cocktailId)
         e.target.reset()
     }
     
     renderIngredient(ingredientList){
         //  debugger
+      
         const li = document.createElement('li')
       
-        li.dataset.id = this.cocktail_id
+        li.dataset.id = this.id
         li.innerText = this.name
 
         const deleteBtn = document.createElement('button')
-        deleteBtn.innerText = "X"
+        deleteBtn.innerText = "x"
         li.appendChild(deleteBtn)
+
+        deleteBtn.addEventListener("click", this.deleteIngredient)
         ingredientList.appendChild(li)
         
 }
@@ -55,4 +58,14 @@ class Ingredient{
     .catch(err => alert(err))
     }
     
+    deleteIngredient(){
+        
+        const ingrId = this.parentElement.dataset.id
+    
+         fetch(`${ingredientsURL}/${ingrId}`,{
+             method: "DELETE"
+         })
+         .catch(err => alert(err))
+         this.parentElement.remove()
+     }
 }
