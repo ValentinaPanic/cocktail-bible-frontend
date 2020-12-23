@@ -24,13 +24,16 @@ class Ingredient{
         //  debugger
       
         const li = document.createElement('li')
-      
+        li.className = "list-group-item"
         li.dataset.id = this.id
         li.innerText = this.name
 
+        const lnbr = document.createElement('br')
         const deleteBtn = document.createElement('button')
-        deleteBtn.innerText = "x"
-        li.appendChild(deleteBtn)
+        deleteBtn.className = "badge badge-pill badge-primary"
+        deleteBtn.innerText = "Remove"
+        
+        li.append(lnbr, deleteBtn)
 
         deleteBtn.addEventListener("click", this.deleteIngredient)
         ingredientList.appendChild(li)
@@ -52,6 +55,7 @@ class Ingredient{
     })
     .then(response => response.json())
     .then(ingredient => {
+        // debugger
         let newIngredient = new Ingredient(ingredient)
         newIngredient.renderIngredient(ingredientList)
     })

@@ -3,28 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cocktail Bible</title>
+    <title class="btn btn-danger disabled">Cocktail Bible</title>
+    <link rel="stylesheet" href="bootstrap.css">
 </head>
 <body>
-    <h1 class ="logo">Cocktail Bible</h1>
-    <div id="cocktail-container">
-    <h3>Create A New Cocktail</h3>
-       
-        <form id="cocktail-form">
-            
-            <input type="text" id= "input-image-url" placeholder="Upload the image URL"><br>
-            <input type="text" id="input-cocktail-name" placeholder="Cocktail Name"><br>
-            
-            <textarea id="input-instructions" rows="8" cols="60" placeholder="Instructions"></textarea>
-            <input type="submit">
-        </form><br>
-  
-        <hr>
+    <div class="jumbotron">
+        <h1 class="display-3" >Cocktail Bible</h1>
         
-     <ul id="cocktail-list">
-      
-     </ul>
-       
+        <hr class="my-4">
+        <p class="lead">Create A New Cocktail</p>
+        <p class="lead">
+            <!-- <div id="cocktail-container"></div> -->
+            <form id="cocktail-form">
+            <fieldset>
+                <div class="form-group">
+                    <label for="name">Cocktail Name</label>
+                    <input type="text" class="form-control" id="input-cocktail-name"  >
+               </div>
+                <div class="form-group">
+                    <label for="image">Image URL</label>
+                    <input type="text" class="form-control" id="input-image-url"  >
+               </div>
+                <div class="form-group">
+                    <label for="instructions">Instructions</label>
+                    <textarea class="form-control" id="input-instructions" rows="3"></textarea>
+                  </div>
+                <input type="submit" class="btn btn-primary btn-lg" value="Create">
+                </fieldset>
+            </form><br>
+        </div>
+        </p>
+      </div>
+      <div class="wrapper"></div>
+        <div class="card mb-3">
+            <ul id="cocktail-list">
+            
+            </ul>
+       </div>
+  
     </div>
     
     <script src="./src/ingredient.js"></script> 

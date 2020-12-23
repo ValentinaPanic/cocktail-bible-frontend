@@ -10,4 +10,3 @@ const instructionsInput = document.getElementById("input-instructions")
 cocktailForm.addEventListener("submit",  Cocktail.submitCocktail)
 Cocktail.fetchCocktails()
 
-

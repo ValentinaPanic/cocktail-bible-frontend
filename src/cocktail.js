@@ -11,11 +11,10 @@ class Cocktail{
         this.ingredients = cocktail.attributes.ingredients
         // debugger
         Cocktail.allCocktails.push(this)
-        // this.fetchCocktails = this.fetchCocktails.bind(this)
-
+        
     }
 
-        static renderCocktails = () =>{
+        static renderCocktails(){
         for (let cocktail of this.allCocktails){
            
             cocktail.renderCocktail()
@@ -25,7 +24,7 @@ class Cocktail{
              fetch(cocktailsURL)
             .then(response => response.json())
             .then(cocktails => {
-            
+            // debugger
              
                 for(let cocktail of cocktails.data){
                 let newCocktailList = new Cocktail(cocktail)
@@ -39,34 +38,38 @@ class Cocktail{
         renderCocktail(){
      
         const cocktailList = document.getElementById("cocktail-list")
-         const cocktailLi = document.createElement('li')
+        const cocktailLi = document.createElement('li')
         cocktailLi.dataset.id = this.id
         cocktailList.appendChild(cocktailLi)
         //cocktail html 
         const h3 = document.createElement('h3')
+        h3.className=("card-header")
         h3.innerText = this.name
         const img = document.createElement('img')
         img.src = this.image
-        img.width = 200
+        img.width = 250
         const p = document.createElement('p')
+        p.className = "card-text"
         p.innerText = this.instructions
 
         //delete button
         const deleteBtn = document.createElement("button")
+        deleteBtn.className = "btn btn-primary btn-sm"
         deleteBtn.innerText = "Delete Cocktail"
         deleteBtn.addEventListener("click", this.deleteCocktail)
         //ingredient form
         const ingredientForm = document.createElement('form')
-        ingredientForm.innerHTML += `<input type="text" id="ingredient-input" placeholder ="Ingredient">
-        <input type="submit" value="Add">`
+        ingredientForm.innerHTML += `<input type="text"  class="form-control" id="ingredient-input" placeholder ="Ingredient">
+        <input type="submit" class="btn btn-primary btn-sm" value="Add">`
 
     
         ingredientForm.addEventListener("submit", Ingredient.createIngredient)
 
         const ingredientList = document.createElement("ul")
+        ingredientList.className = "list-group list-group-flush"
         //rendering ingredients per cocktail
         this.ingredients.forEach(ingredient =>{
-
+            
             let newIngr = new Ingredient(ingredient)
            newIngr.renderIngredient(ingredientList)
         
@@ -97,10 +100,11 @@ class Cocktail{
         .then(response => response.json())
         .then(cocktail => {
         // debugger
-        let newCocktail = new Cocktail(cocktail)
+        let newCocktail = new Cocktail(cocktail.data)
         console.log(newCocktail)
         newCocktail.renderCocktail()
      })
+     
     }
 
         deleteCocktail(){
