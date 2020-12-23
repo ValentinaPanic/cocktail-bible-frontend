@@ -3,30 +3,35 @@ class Cocktail{
     static allCocktails = []
 
     constructor(cocktail){
-       
+    //    debugger
         this.id = cocktail.id
         this.name = cocktail.attributes.name
         this.image = cocktail.attributes.image
         this.instructions = cocktail.attributes.instructions
         this.ingredients = cocktail.attributes.ingredients
+        // debugger
         Cocktail.allCocktails.push(this)
+        // this.fetchCocktails = this.fetchCocktails.bind(this)
 
     }
 
-        static renderCocktails(){
+        static renderCocktails = () =>{
         for (let cocktail of this.allCocktails){
            
             cocktail.renderCocktail()
         }
     }
          static fetchCocktails(){
-        fetch(cocktailsURL)
-        .then(response => response.json())
-        .then(cocktails => {
-            for(let cocktail of cocktails.data){
-            let newCocktailList = new Cocktail(cocktail)
-          
+             fetch(cocktailsURL)
+            .then(response => response.json())
+            .then(cocktails => {
+            
+             
+                for(let cocktail of cocktails.data){
+                let newCocktailList = new Cocktail(cocktail)
+              newCocktailList.renderCocktail       
         }
+
         this.renderCocktails()
         })
      
@@ -61,8 +66,8 @@ class Cocktail{
         const ingredientList = document.createElement("ul")
         //rendering ingredients per cocktail
         this.ingredients.forEach(ingredient =>{
+
             let newIngr = new Ingredient(ingredient)
-            // console.log(newIngr)
            newIngr.renderIngredient(ingredientList)
         
     })
@@ -74,8 +79,8 @@ class Cocktail{
  }
 
      static submitCocktail(e){
-    e.preventDefault()
-   fetch(cocktailsURL, {
+       e.preventDefault()
+       fetch(cocktailsURL, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -89,16 +94,17 @@ class Cocktail{
         })
         
     })
-    .then(response => response.json())
-    .then(cocktail => {
-        
-        let newCocktail = new Cocktail(cocktail.data)
-        newCocktail.renderCocktail()}
-        )}
+        .then(response => response.json())
+        .then(cocktail => {
+        // debugger
+        let newCocktail = new Cocktail(cocktail)
+        console.log(newCocktail)
+        newCocktail.renderCocktail()
+     })
+    }
 
         deleteCocktail(){
 
-            //  console.log(this.target.parentElement)
             const cocktailId = this.parentElement.dataset.id
         
              fetch(`${cocktailsURL}/${cocktailId}`,{

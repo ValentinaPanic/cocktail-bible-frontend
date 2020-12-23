@@ -65,7 +65,7 @@ class Ingredient{
          fetch(`${ingredientsURL}/${ingrId}`,{
              method: "DELETE"
          })
-         .catch(err => alert(err))
+         
          this.parentElement.remove()
      }
 }
