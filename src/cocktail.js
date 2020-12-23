@@ -39,6 +39,7 @@ class Cocktail{
      
         const cocktailList = document.getElementById("cocktail-list")
         const cocktailLi = document.createElement('li')
+        
         cocktailLi.dataset.id = this.id
         cocktailList.appendChild(cocktailLi)
         //cocktail html 
@@ -47,7 +48,7 @@ class Cocktail{
         h3.innerText = this.name
         const img = document.createElement('img')
         img.src = this.image
-        img.width = 250
+        img.width = 200
         const p = document.createElement('p')
         p.className = "card-text"
         p.innerText = this.instructions
