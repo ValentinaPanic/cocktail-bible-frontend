@@ -4732,7 +4732,7 @@ input[type="button"].btn-block {
   grid-auto-rows: auto;
   grid-column: auto;
   grid-template-columns: repeat(2, 1fr); 
-   gap: 3px;
+  gap: 1px;
   grid-auto-rows: minmax(100px, auto);
   
 }
@@ -5280,6 +5280,9 @@ a.badge-dark:focus, a.badge-dark.focus {
   margin-bottom: 2rem;
   background-color: #1c1e22;
   border-radius: 0.3rem;
+  background-image: url("martini.jpg");
+  /* background-position: center; */
+  /* background-repeat: no-repeat; */
 }
 
 @media (min-width: 576px) {
