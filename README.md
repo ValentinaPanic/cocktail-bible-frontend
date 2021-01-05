@@ -13,5 +13,5 @@ Cocktail Bible has a JavaScript frontend and Rails API backend. The app is built
 ## Instructions
 
 * Go to the Backend Rails API repo and follow Installation instructions
-* Run open index.html 
+* Run `open index.html `
 * Have fun creating your cocktail book with **Cocktail Bible**
