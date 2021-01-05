@@ -13,9 +13,9 @@ class Ingredient{
           e.preventDefault()
         const li = document.createElement('li')
         const ingredientName = e.target.children[0].value
-        const ingredientList = e.target.nextElementSibling
+        const ingredientList = e.target.previousElementSibling
         const cocktailId = e.target.parentElement.dataset.id
-//  debugger
+
         Ingredient.submitIngredient(ingredientName, ingredientList, cocktailId)
         e.target.reset()
     }
@@ -58,6 +58,7 @@ class Ingredient{
         // debugger
         let newIngredient = new Ingredient(ingredient)
         newIngredient.renderIngredient(ingredientList)
+      
     })
     .catch(err => alert(err))
     }

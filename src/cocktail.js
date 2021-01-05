@@ -9,7 +9,7 @@ class Cocktail{
         this.image = cocktail.attributes.image
         this.instructions = cocktail.attributes.instructions
         this.ingredients = cocktail.attributes.ingredients
-        // debugger
+     
         Cocktail.allCocktails.push(this)
         
     }
@@ -30,7 +30,7 @@ class Cocktail{
                 let newCocktailList = new Cocktail(cocktail)
               newCocktailList.renderCocktail       
         }
-
+    
         this.renderCocktails()
         })
      
