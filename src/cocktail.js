@@ -11,33 +11,30 @@ class Cocktail{
         this.ingredients = cocktail.attributes.ingredients
      
         Cocktail.allCocktails.push(this)
-        
+        this.renderCocktail()
     }
 
-        static renderCocktails(){
-        for (let cocktail of this.allCocktails){
-           
+        static renderCocktails(cocktails){
+            cocktailList.innerHTML = ""
+          for (let cocktail of cocktails){
             cocktail.renderCocktail()
+
         }
     }
          static fetchCocktails(){
              fetch(cocktailsURL)
             .then(response => response.json())
             .then(cocktails => {
-            // debugger
-             
-                for(let cocktail of cocktails.data){
+                   for(let cocktail of cocktails.data){
                 let newCocktailList = new Cocktail(cocktail)
-              newCocktailList.renderCocktail       
-        }
-    
-        this.renderCocktails()
+                   }
+
         })
      
     }
         renderCocktail(){
      
-        const cocktailList = document.getElementById("cocktail-list")
+        // const cocktailList = document.getElementById("cocktail-list")
         const cocktailLi = document.createElement('li')
         
         cocktailLi.dataset.id = this.id
@@ -58,6 +55,7 @@ class Cocktail{
         deleteBtn.className = "btn btn-primary btn-sm"
         deleteBtn.innerText = "Delete Cocktail"
         deleteBtn.addEventListener("click", this.deleteCocktail)
+
         //ingredient form
         const ingredientForm = document.createElement('form')
         ingredientForm.innerHTML += `<input type="text"  class="form-control" id="ingredient-input" placeholder ="Ingredient">
@@ -68,6 +66,7 @@ class Cocktail{
 
         const ingredientList = document.createElement("ul")
         ingredientList.className = "list-group list-group-flush"
+
         //rendering ingredients per cocktail
         this.ingredients.forEach(ingredient =>{
             
@@ -78,13 +77,11 @@ class Cocktail{
     
     cocktailLi.append( h3, img, ingredientList, ingredientForm, p, deleteBtn)
 
-    cocktailForm.reset()
- 
- }
+}
 
-     static submitCocktail(e){
-       e.preventDefault()
-       fetch(cocktailsURL, {
+static submitCocktail(e){
+    e.preventDefault()
+    fetch(cocktailsURL, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -98,15 +95,16 @@ class Cocktail{
         })
         
     })
-        .then(response => response.json())
-        .then(cocktail => {
+    .then(response => response.json())
+    .then(cocktail => {
         // debugger
         let newCocktail = new Cocktail(cocktail.data)
-        console.log(newCocktail)
+        
         newCocktail.renderCocktail()
-     })
-     
-    }
+        cocktailForm.reset()
+    })
+    
+}
 
         deleteCocktail(){
 
@@ -118,5 +116,8 @@ class Cocktail{
              .catch(err => alert(err))
              this.parentElement.remove()
          }
+
+
+     
 }
 

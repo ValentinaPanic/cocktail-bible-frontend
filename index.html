@@ -13,12 +13,12 @@
         <hr class="my-4">
         <p class="lead">Create A New Cocktail</p>
         <p class="lead">
-            <!-- <div id="cocktail-container"></div> -->
+           
             <form id="cocktail-form">
             <fieldset>
                 <div class="form-group">
                     <label for="name">Cocktail Name</label>
-                    <input type="text" class="form-control" id="input-cocktail-name"  >
+                    <input type="text" class="form-control" id="input-cocktail-name" >
                </div>
                 <div class="form-group">
                     <label for="image">Image URL</label>
@@ -29,14 +29,27 @@
                     <textarea class="form-control" id="input-instructions" rows="3"></textarea>
                   </div>
                 <input type="submit" class="btn btn-primary btn-lg" value="Create">
-                </fieldset>
+            </fieldset>
             </form><br>
         </div>
         </p>
       </div>
-      <!-- <div class="wrapper"> -->
+      <div class="form-group">
+        <input type="text" class="form-control" id="searchBar" placeholder="Search By Name" >
+      </div>
+      <div class="nav nav-pills flex-column">
+      <select  class="form-control" name="" id="liquor">
+        <option class="dropdown-item" value="" >--Search By Ingredient--</option>
+        <option value="bourbon">Bourbon</option>
+        <option value="vodka">Vodka</option>
+        <option value="tequila">Tequila</option>
+        <option value="rum">Rum</option>
+        <option value="gin">Gin</option>
+        <option value="mezcal">Mezcal</option>
+    </select>
+    </div>
         <div class="card mb-3">
-            
+           
             <ul id="cocktail-list" class="wrapper">
             
             </ul>

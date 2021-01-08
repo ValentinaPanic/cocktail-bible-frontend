@@ -66,8 +66,7 @@ class Ingredient{
     deleteIngredient(){
         
         const ingrId = this.parentElement.dataset.id
-    
-         fetch(`${ingredientsURL}/${ingrId}`,{
+             fetch(`${ingredientsURL}/${ingrId}`,{
              method: "DELETE"
          })
          
