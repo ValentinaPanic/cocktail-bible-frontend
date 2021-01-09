@@ -1,32 +1,35 @@
 class Ingredient{
 
     constructor(ingredient){
-        // debugger
+       console.log(ingredient)
         this.id = ingredient.id
         this.name = ingredient.name
         this.cocktail_id = ingredient.cocktail_id
+        // this.cocktail = ingredient.cocktail
 
     }
 
     static createIngredient(e){
-    
+        
           e.preventDefault()
         const li = document.createElement('li')
         const ingredientName = e.target.children[0].value
         const ingredientList = e.target.previousElementSibling
         const cocktailId = e.target.parentElement.dataset.id
-
+       
         Ingredient.submitIngredient(ingredientName, ingredientList, cocktailId)
         e.target.reset()
+        
     }
     
     renderIngredient(ingredientList){
-        //  debugger
       
+    
         const li = document.createElement('li')
         li.className = "list-group-item"
         li.dataset.id = this.id
         li.innerText = this.name
+        const cocktailId = this.cocktail_id
 
         const lnbr = document.createElement('br')
         const deleteBtn = document.createElement('button')
@@ -50,17 +53,23 @@ class Ingredient{
         },
         body: JSON.stringify({
            name: ingredientName,
-           cocktail_id: cocktailId
+           cocktail_id: cocktailId,
+           ingredientList: ingredientList
         })
     })
     .then(response => response.json())
     .then(ingredient => {
-        // debugger
+       
         let newIngredient = new Ingredient(ingredient)
+           
+        const cocktail = Cocktail.allCocktails.find(c => parseInt(c.id) === newIngredient.cocktail_id)
+        cocktail.ingredients.push(newIngredient)
+        
         newIngredient.renderIngredient(ingredientList)
-      
+    
     })
     .catch(err => alert(err))
+   
     }
     
     deleteIngredient(){

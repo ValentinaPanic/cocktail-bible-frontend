@@ -3,7 +3,7 @@ class Cocktail{
     static allCocktails = []
 
     constructor(cocktail){
-    //    debugger
+     
         this.id = cocktail.id
         this.name = cocktail.attributes.name
         this.image = cocktail.attributes.image
@@ -39,8 +39,7 @@ class Cocktail{
         
         cocktailLi.dataset.id = this.id
         cocktailList.appendChild(cocktailLi)
-        //cocktail html 
-        const h3 = document.createElement('h3')
+            const h3 = document.createElement('h3')
         h3.className=("card-header")
         h3.innerText = this.name
         const img = document.createElement('img')
@@ -66,14 +65,15 @@ class Cocktail{
 
         const ingredientList = document.createElement("ul")
         ingredientList.className = "list-group list-group-flush"
-
+          ingredientList.dataset.id = this.id
         //rendering ingredients per cocktail
+        console.log(this.ingredients)
         this.ingredients.forEach(ingredient =>{
-            
+          
             let newIngr = new Ingredient(ingredient)
-           newIngr.renderIngredient(ingredientList)
-        
-    })
+          
+            newIngr.renderIngredient(ingredientList)
+        })
     
     cocktailLi.append( h3, img, ingredientList, ingredientForm, p, deleteBtn)
 
@@ -91,16 +91,13 @@ static submitCocktail(e){
            image: imageInput.value,
            name: cocktailNameInput.value,
            instructions: instructionsInput.value
-           
         })
         
     })
     .then(response => response.json())
     .then(cocktail => {
-        // debugger
         let newCocktail = new Cocktail(cocktail.data)
-        
-        newCocktail.renderCocktail()
+      
         cocktailForm.reset()
     })
     
