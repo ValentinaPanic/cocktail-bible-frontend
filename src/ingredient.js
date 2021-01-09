@@ -1,17 +1,16 @@
 class Ingredient{
 
     constructor(ingredient){
-       console.log(ingredient)
+       
         this.id = ingredient.id
         this.name = ingredient.name
         this.cocktail_id = ingredient.cocktail_id
-        // this.cocktail = ingredient.cocktail
-
+    
     }
 
     static createIngredient(e){
         
-          e.preventDefault()
+        e.preventDefault()
         const li = document.createElement('li')
         const ingredientName = e.target.children[0].value
         const ingredientList = e.target.previousElementSibling
@@ -24,13 +23,11 @@ class Ingredient{
     
     renderIngredient(ingredientList){
       
-    
         const li = document.createElement('li')
         li.className = "list-group-item"
         li.dataset.id = this.id
         li.innerText = this.name
-        const cocktailId = this.cocktail_id
-
+       
         const lnbr = document.createElement('br')
         const deleteBtn = document.createElement('button')
         deleteBtn.className = "badge badge-pill badge-primary"
@@ -43,9 +40,9 @@ class Ingredient{
         
 }
 
- static submitIngredient(ingredientName, ingredientList, cocktailId){
+     static submitIngredient(ingredientName, ingredientList, cocktailId){
 
-    fetch(ingredientsURL, {
+        fetch(ingredientsURL, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -57,18 +54,17 @@ class Ingredient{
            ingredientList: ingredientList
         })
     })
-    .then(response => response.json())
-    .then(ingredient => {
+        .then(response => response.json())
+        .then(ingredient => {
        
         let newIngredient = new Ingredient(ingredient)
            
         const cocktail = Cocktail.allCocktails.find(c => parseInt(c.id) === newIngredient.cocktail_id)
         cocktail.ingredients.push(newIngredient)
-        
+
         newIngredient.renderIngredient(ingredientList)
     
     })
-    .catch(err => alert(err))
    
     }
     

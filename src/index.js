@@ -21,9 +21,6 @@ Cocktail.renderCocktails(arr)
 })
 
 
-
-
-
 searchBar.addEventListener("keyup", function(e){
     const searchInput = e.target.value.toLowerCase()
     const searchResult = Cocktail.allCocktails.filter( cocktail => {

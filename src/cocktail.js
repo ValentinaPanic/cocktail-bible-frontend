@@ -39,7 +39,7 @@ class Cocktail{
         
         cocktailLi.dataset.id = this.id
         cocktailList.appendChild(cocktailLi)
-            const h3 = document.createElement('h3')
+        const h3 = document.createElement('h3')
         h3.className=("card-header")
         h3.innerText = this.name
         const img = document.createElement('img')
@@ -67,7 +67,7 @@ class Cocktail{
         ingredientList.className = "list-group list-group-flush"
           ingredientList.dataset.id = this.id
         //rendering ingredients per cocktail
-        console.log(this.ingredients)
+       
         this.ingredients.forEach(ingredient =>{
           
             let newIngr = new Ingredient(ingredient)
@@ -79,40 +79,40 @@ class Cocktail{
 
 }
 
-static submitCocktail(e){
-    e.preventDefault()
-    fetch(cocktailsURL, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            "Accept": "application/json",
-        },
-        body: JSON.stringify({
-           image: imageInput.value,
-           name: cocktailNameInput.value,
-           instructions: instructionsInput.value
+    static submitCocktail(e){
+        e.preventDefault()
+        fetch(cocktailsURL, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json",
+            },
+            body: JSON.stringify({
+            image: imageInput.value,
+            name: cocktailNameInput.value,
+            instructions: instructionsInput.value
+            })
+            
+        })
+        .then(response => response.json())
+        .then(cocktail => {
+            let newCocktail = new Cocktail(cocktail.data)
+        
+            cocktailForm.reset()
         })
         
-    })
-    .then(response => response.json())
-    .then(cocktail => {
-        let newCocktail = new Cocktail(cocktail.data)
-      
-        cocktailForm.reset()
-    })
-    
-}
+    }
 
-        deleteCocktail(){
+    deleteCocktail(){
 
-            const cocktailId = this.parentElement.dataset.id
+        const cocktailId = this.parentElement.dataset.id
         
-             fetch(`${cocktailsURL}/${cocktailId}`,{
+        fetch(`${cocktailsURL}/${cocktailId}`,{
                  method: "DELETE"
-             })
-             .catch(err => alert(err))
+        })
+       
              this.parentElement.remove()
-         }
+    }
 
 
      
